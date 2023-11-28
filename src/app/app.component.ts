@@ -18,7 +18,6 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit{
   title = 'Q-Events';
   
-  private router = inject(Router);
   private uiService = inject(UiService);
   private userService = inject(UserService);
 
@@ -26,12 +25,13 @@ export class AppComponent implements OnInit{
   userExist: boolean = false;
   
   ngOnInit(): void {
-    this.userService.getAllUsers();
+
     const userId = localStorage.getItem('q_user');
     if(userId == null || userId === 'undefined') {
       this.uiService.redirect('/login')
       return;
     }
+
 
     this.uId = parseInt(userId!);
     this.userService.setActiveUser(this.uId);

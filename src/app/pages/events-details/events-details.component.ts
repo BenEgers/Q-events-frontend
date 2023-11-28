@@ -66,8 +66,4 @@ export class EventsDetailsComponent implements OnInit{
       timeZone: 'America/Paramaribo',
     }).format(new Date(datum));
   }
-
-  
-
-
 }

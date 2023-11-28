@@ -52,7 +52,6 @@ export class UserService{
     this.activeUserId = userId
   }
   
-  
 
   login(user: UserAuth): boolean {
     const allUsers = this.$users();
