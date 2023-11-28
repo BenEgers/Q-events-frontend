@@ -1,0 +1,19 @@
+<div class="container">
+    <section class="all-events">
+
+        <div class="links">
+            <div class="today">
+                <a class='cta-3' routerLink="#">Your Events:</a>
+            </div>
+            <div class="make-event">
+                <a class='cta cta-make' (click)="showForm()">Make New Event +</a>
+            </div>
+        </div>
+    
+        <div class="event-card-container">
+            <app-event-card *ngFor="let event of $eventsOfUser()" [event]="event"></app-event-card>
+        </div>
+    </section>
+
+    
+</div>

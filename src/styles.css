@@ -1,1 +1,130 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Kanit:ital,wght@0,300;0,500;1,400&family=Lakki+Reddy');
+:root{
+    --main-color:  #E01B24;
+    --secund-color: #2A863E;
+
+    --main-font: 'Kanit', sans-serif;
+    --secund-font: 'Lakki Reddy', sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit', sans-serif;
+}
+
+
+h1{
+    font-size: 2rem;
+}
+
+h2{
+    font-size: 1.5rem;
+}
+
+h3{
+    font-size: 1.3rem;
+}
+
+h4{
+    font-size: 1rem;
+}
+
+.app-wrapper{
+    min-height: 83vh;
+}
+
+.active{
+     font-weight: bold;
+     position: relative;
+
+}
+
+.active::after{
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+}
+
+section{
+    padding: 1rem 0;
+}
+.links{
+    width: 100%;
+    margin: 1rem 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.event-card-container-overflow{
+    width: 100%;
+    overflow-x: scroll;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 10px;
+}
+
+.event-card-container-overflow::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+    background-color: #aaa;
+    border-radius: 5px; /* or add it to the track */
+  }
+
+.event-card-container-overflow::-webkit-scrollbar-thumb {
+    background: var(--main-color) !important;
+    border-radius: 5px;
+  }
+
+.event-card-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 1rem;
+    padding: 10px 0;
+}
+
+.cta{
+    padding: 10px 15px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cta-make{
+    border-radius: 30px;
+    background-color: var(--secund-color);
+    font-weight: normal;
+}
+.cta-3{
+    color: #000;
+    font-weight: 500;
+}
+.cta-3.red{
+    color: var(--main-color);
+}
+
+input.invalid{
+    border: 1px solid var(--main-color);
+}

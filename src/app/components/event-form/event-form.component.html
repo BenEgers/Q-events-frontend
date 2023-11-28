@@ -1,0 +1,44 @@
+<section class="event-form dismiss" (click)="handleClick($event)">
+    <form class="form" [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        <h2 class="header">🎆🎊Create Event</h2>
+        <div class="form-control-s titel">
+            <label for="titel">Titel:</label>
+            <input type="text" formControlName="titel" id="titel" class="titel">
+
+            <div *ngIf="eventForm.get('titel')?.invalid && (eventForm.get('titel')?.dirty || eventForm?.get('titel')?.touched) || (isSubmitted && !eventForm.get('titel')?.dirty)" class="text-danger">
+                Titel van het evenement is vereist!!
+            </div>
+        </div>
+        <div class="form-control-s datum">
+            <label for="datum">Datum & Tijd:</label>
+            <input type="datetime-local" formControlName="datum" id="datum" class="datum">
+            <div *ngIf="eventForm.get('datum')?.invalid && (eventForm.get('datum')?.dirty || eventForm?.get('datum')?.touched) || (isSubmitted && !eventForm.get('datum')?.dirty)" class="text-danger">
+                Een Datum is vereist!!
+            </div>
+        </div>
+        <div class="form-control-s locatie">
+            <label for="locatie">Locatie:</label>
+            <select name="locatie" formControlName="locatie" id="locatie">
+                <option value="" disabled selected hidden>Kies een locatie</option>
+                <option value="Q-Noord">Q-Noord</option>
+                <option value="Q-Zuid">Q-Zuid</option>
+                <option value="ONLINE">Online</option>
+              </select>
+            <!-- <input type="text" formControlName="locatie" id="locatie" class="locatie"> -->
+            <div *ngIf="eventForm.get('locatie')?.invalid && (eventForm.get('locatie')?.dirty || eventForm?.get('locatie')?.touched) || (isSubmitted && !eventForm.get('locatie')?.dirty)" class="text-danger">
+                Locatie is vereist!!
+            </div>
+        </div>
+        <div class="form-control-s omschrijving">
+            <label for="omschrijving">omschrijving:</label>
+            <textarea formControlName="omschrijving" id="omschrijving" class="omschrijving">
+    
+            </textarea>
+        </div>
+        <div class="form-control-s submit">
+            <button type="submit" name="submit"  id="submit">{{submitBtnText}}</button>
+        </div>
+
+    </form>
+    
+</section>

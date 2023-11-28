@@ -1,0 +1,104 @@
+h2{
+    font-size: 2.2rem;
+}
+
+h4{
+    font-size: 1.8rem;
+}
+
+.heading{
+    width: 100%;
+    margin-top:2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.nav-back p{
+    text-decoration: underline;
+}
+
+.date-flex{
+    display: flex;
+    gap: 5px;
+}
+
+.date-flex svg{
+    height: 1.5rem;
+
+}
+
+.date-flex svg {
+    stroke: var(--secund-color);
+}
+.date-flex svg.late{
+    stroke: var(--main-color) !important;
+}
+
+
+
+.title h2{
+    margin-bottom: 2rem;
+}
+
+.title .datum{
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.delete-btn{
+    display: flex;
+    padding: 5px 10px;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    gap: 5px
+}
+
+.delete-btn svg{
+    height: 1.3rem;
+}
+
+.delete-btn p {
+    margin-bottom: 0;
+}
+
+.event-body{
+    position: relative;
+    padding: 10px 1.5rem;
+    border: 1px solid #ccc;
+    min-height: 300px;
+    border-radius: 10px;
+    box-shadow: 6px 6px 12px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.omschrijving p {
+    margin-top: 3rem;
+    font-size: 1.5rem;
+}
+
+
+.locatie{
+    display: flex;
+    gap: 1rem;
+}
+
+.locatie .loc{
+    color: var(--main-color)
+}
+
+.edit{
+    position: absolute;
+    right: 10px;
+    top: -1.8rem;
+    cursor: pointer;
+}
+
+.edit svg{
+    height: 3rem;
+    stroke: rgb(25, 25, 198)
+}

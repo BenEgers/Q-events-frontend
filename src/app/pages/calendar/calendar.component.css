@@ -1,0 +1,41 @@
+.spacer{
+    height: 2rem;
+    width: 100%;
+}
+
+.calendar{
+    margin: 2rem 0;
+    min-width: 550px;
+}
+
+.body{
+    width: 100%;
+    background-color: rgba(10, 30, 80, 0.922);
+    cursor: pointer;
+
+}
+
+.calendar .wrapper{
+    padding: 5px;
+    border-radius: 3px;
+    color: #fff;
+    min-width: 340px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+
+}
+
+p{
+    margin-bottom: 0;
+}
+
+.title-p{
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.time-p{
+    font-size: 1.2rem;
+    font-style: italic;
+}

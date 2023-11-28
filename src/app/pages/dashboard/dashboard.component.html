@@ -1,0 +1,40 @@
+<div class="container">
+ <section class="events-section">
+    <div class="links">
+        <div class="today">
+            <a class='cta-3' routerLink="#">Your Events For Today</a>
+        </div>
+        <div class="all-events">
+            <a class='cta-3 red' routerLink="/events">All Your Events ></a>
+        </div>
+    </div>
+    <div class="event-card-container-overflow">
+        <app-event-card *ngFor="let event of $eventsOfToday()" [event]="event"></app-event-card>
+    </div>
+</section>
+<div class="spacer"></div>
+ <section class="calendar">
+    <div class="links">
+        <div class="today">
+            <a class='cta-3' routerLink="#">Your Calendar</a>
+        </div>
+        <div class="make-event">
+            <a class='cta cta-make' (click)="showForm()">Make New Event +</a>
+        </div>
+    </div>
+    <full-calendar [options]="calendarOptions" [events]="$calendarEvents()">
+        <ng-template #eventContent let-arg>
+            <div class="body" routerLink='/events/{{arg.event.id}}'>
+                <div class="wrapper">
+                    <div class="time">
+                        <h3>{{arg.timeText}}</h3>
+                    </div>
+                    <div class="title">
+                        <h3>{{arg.event.title}}</h3>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </full-calendar>
+ </section>   
+</div>

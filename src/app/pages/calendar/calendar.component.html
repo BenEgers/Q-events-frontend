@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="spacer"></div>
+    <div class="links">
+        <div class="today">
+            <a class='cta-3' routerLink="#">Your Calendar</a>
+        </div>
+        <div class="make-event">
+            <a class='cta cta-make' (click)="showForm()">Make New Event +</a>
+        </div>
+    </div>
+    <section class="calendar">
+        <full-calendar [options]="calendarOptions" headerToolbar='headerToolbar' [events]="$calendarEvents()">
+            <ng-template #eventContent let-arg>
+                <div class="body" routerLink='/events/{{arg.event.id}}'>
+                    <div class="wrapper">
+                        <div class="time">
+                            <p class="time-p">{{arg.timeText}}</p>
+                        </div>
+                        <div class="title">
+                            <p class="title-p">{{arg.event.title}}</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </full-calendar>
+     </section>   
+</div>

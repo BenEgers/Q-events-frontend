@@ -1,0 +1,40 @@
+<section class="sign-up-form">
+    <form class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <h2 class="header">🥳🌏🏟️Hello there!</h2>
+        <div class="form-control-s name">
+            <label for="titel">Voornaam & Achternaam:</label>
+            <input type="text" formControlName="name" id="name">
+            <span *ngIf="signUpForm.get('name')?.invalid && (signUpForm.get('name')?.dirty || signUpForm?.get('name')?.touched) || (isSubmitted && !signUpForm.get('name')?.dirty)" class="text-danger">
+                Uw naam is vereist!
+            </span>
+        </div>
+        <div class="form-control-s email">
+            <label for="email">Email:</label>
+            <input type="email" formControlName="email" id="email">
+            <span *ngIf="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm?.get('email')?.touched) || (isSubmitted && !signUpForm.get('email')?.dirty)" class="text-danger">
+                Vul een geldig email adres in!
+            </span>
+        </div>
+        <div class="form-control-s password">
+            <label for="password">password:</label>
+            <input type="password" formControlName="password" id="password">
+            <span *ngIf="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm?.get('password')?.touched) || (isSubmitted && !signUpForm.get('password')?.dirty)" class="text-danger">
+                Password is vereist! (min. 5 chars)
+            </span>
+        </div>
+        <div class="form-control-s password-comfirmation">
+            <label for="password-confirmation">Password Confirmation:</label>
+            <input type="password" formControlName="password_confirmation" id="password-comfirmation" >
+            <span *ngIf="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm?.get('password')?.touched) || (isSubmitted && !signUpForm.get('password_confirmation')?.dirty) || pw_confirmationMessage" class="text-danger">
+                {{pw_confirmationMessage}}
+            </span>
+        </div>
+        <div class="form-control-s submit">
+            <button type="submit" name="submit"  id="submit">Sign Up</button>
+        </div>
+        <div class="form-control-s register">
+            <a id="register" routerLink="/login">Already have an account? Login</a>
+        </div>
+    </form>
+    
+</section>

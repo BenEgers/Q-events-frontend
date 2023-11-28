@@ -1,0 +1,323 @@
+{
+  "users": [
+    {
+      "name": "Benjamin Egers",
+      "email": "bengieegers@gmail.com",
+      "password": "1234",
+      "id": 1
+    },
+    {
+      "name": "Franklin Saint",
+      "email": "fsaint@gmail.com",
+      "password": "1234",
+      "id": 2
+    },
+    {
+      "name": "Frank Lucas",
+      "email": "flucas@gmail.com",
+      "password": "1234",
+      "id": 3
+    },
+    {
+      "name": "Frank Lucas",
+      "email": "flucas@gmail.com",
+      "password": "1234",
+      "id": 4
+    },
+    {
+      "name": "Drew League",
+      "email": "dleugue@gmail.com",
+      "password": "1234",
+      "id": 5
+    },
+    {
+      "id": 694723,
+      "name": "Benjamin Egers Reuel",
+      "email": "",
+      "password": ""
+    },
+    {
+      "id": 717993,
+      "name": "Benjamin Egers Reuel",
+      "email": "",
+      "password": ""
+    },
+    {
+      "id": 297634,
+      "name": "Ben G",
+      "email": "test@test.com",
+      "password": "1234"
+    },
+    {
+      "id": 613228,
+      "name": "Ben G",
+      "email": "test@test.com",
+      "password": "1234"
+    },
+    {
+      "id": 212789,
+      "name": "Ben G",
+      "email": "test2@test.com",
+      "password": "1234"
+    },
+    {
+      "id": 406141,
+      "name": "Test3",
+      "email": "test3@test.com",
+      "password": "12345"
+    },
+    {
+      "id": 459889,
+      "name": "Test4",
+      "email": "test4@test.com",
+      "password": "12345"
+    },
+    {
+      "id": 505267,
+      "name": "Test4",
+      "email": "test4@test.com",
+      "password": "1234567"
+    },
+    {
+      "id": 493846,
+      "name": "Ben G4444",
+      "email": "test5@test.com",
+      "password": "12456"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "titel": "Intro voor Bootcampers",
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
+      "datum": "20-Nov-2023",
+      "locatie": "ONLINE",
+      "organizerId": 1
+    },
+    {
+      "titel": "Intro voor Medior",
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
+      "datum": "20-Dec-2023",
+      "locatie": "ONLINE",
+      "organizerId": 1,
+      "id": 3
+    },
+    {
+      "titel": "Intro voor Seniors",
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
+      "datum": "28-Nov-2023",
+      "locatie": "ONLINE",
+      "organizerId": 2,
+      "id": 4
+    },
+    {
+      "titel": "Intro voor DM",
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
+      "datum": "24-Nov-2023",
+      "locatie": "ONLINE",
+      "organizerId": 1,
+      "id": 5
+    },
+    {
+      "id": 6,
+      "titel": "Intro voor OM",
+      "datum": "2023-11-28T10:15",
+      "locatie": "Q-NOORD",
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
+      "organizerId": 1
+    },
+    {
+      "id": 289549,
+      "titel": "2nd Test",
+      "datum": "2023-11-30T14:06",
+      "locatie": "Q-NOORD",
+      "omschrijving": "DAladala wait till i get my money right",
+      "organizerId": 1
+    },
+    {
+      "id": 408088,
+      "titel": "New Rest",
+      "datum": "2023-12-04T14:36",
+      "locatie": "Q-NOORD",
+      "omschrijving": "Hellurn Everybody",
+      "organizerId": 1
+    },
+    {
+      "id": 604658,
+      "titel": "Hello There",
+      "datum": "2023-12-01T14:41",
+      "locatie": "Q-NOORD",
+      "omschrijving": "DAFDSFDHFBN",
+      "organizerId": 1
+    },
+    {
+      "id": 333394,
+      "titel": "1st test my bwoy",
+      "datum": "2023-12-07T10:08",
+      "locatie": "Q-NOORD",
+      "omschrijving": "Hellurn",
+      "organizerId": 297634
+    },
+    {
+      "id": 751432,
+      "titel": "Tuhday",
+      "datum": "2023-11-26T19:06",
+      "locatie": "Q-NOORD",
+      "omschrijving": "sDAFSDGHFJGKH",
+      "organizerId": 297634
+    },
+    {
+      "id": 611003,
+      "titel": "1st test my bwoy",
+      "datum": "2023-11-26T19:21",
+      "locatie": "Q-NOORD",
+      "omschrijving": "QDAFSFSA",
+      "organizerId": 613228
+    },
+    {
+      "id": 558509,
+      "titel": "2nd Test",
+      "datum": "2023-11-30T20:02",
+      "locatie": "Q-NOORD",
+      "omschrijving": "ardjwcrc cndsacsrddc  ",
+      "organizerId": 100
+    },
+    {
+      "id": 266762,
+      "titel": "wfwsaasffasf",
+      "datum": "2023-12-09T20:02",
+      "locatie": "Q-NOORD",
+      "omschrijving": "Hello",
+      "organizerId": 100
+    },
+    {
+      "id": 145629,
+      "titel": "1st test my bwoy",
+      "datum": "2023-11-17T20:08",
+      "locatie": "Q-NOORD",
+      "omschrijving": "aSFs",
+      "organizerId": 406141
+    },
+    {
+      "id": 699732,
+      "titel": "sadf",
+      "datum": "2023-11-14T20:23",
+      "locatie": "Q-NOORD",
+      "omschrijving": "dffddfdfd",
+      "organizerId": 459889
+    },
+    {
+      "id": 660948,
+      "titel": "dhfgh",
+      "datum": "2023-11-26T20:24",
+      "locatie": "Q-NOORD",
+      "omschrijving": "szszsszs",
+      "organizerId": 459889
+    },
+    {
+      "id": 851308,
+      "titel": "",
+      "datum": "2023-12-07T07:48",
+      "locatie": "Q-NOORD",
+      "omschrijving": "wqrwqrrw",
+      "organizerId": 406141
+    },
+    {
+      "id": 774860,
+      "titel": "",
+      "datum": "2023-11-30T07:52",
+      "locatie": "Q-NOORD",
+      "omschrijving": "w",
+      "organizerId": 406141
+    },
+    {
+      "id": 627006,
+      "titel": "",
+      "datum": "2023-12-06T07:55",
+      "locatie": "Q-NOORD",
+      "omschrijving": "qwd",
+      "organizerId": 406141
+    },
+    {
+      "id": 955543,
+      "titel": "",
+      "datum": "2023-12-06T08:09",
+      "locatie": "Q-NOORD",
+      "omschrijving": "",
+      "organizerId": 406141
+    },
+    {
+      "id": 887421,
+      "titel": "Testing testing",
+      "datum": "2023-11-28T11:06",
+      "locatie": "Q-Noord",
+      "omschrijving": "Hello People",
+      "organizerId": 1
+    },
+    {
+      "id": 421012,
+      "titel": "2nd Test",
+      "datum": "2023-11-28T13:36",
+      "locatie": "Q-NOORD",
+      "omschrijving": "uuhkk",
+      "organizerId": 1
+    },
+    {
+      "id": 342038,
+      "titel": "2nd Test",
+      "datum": "2023-12-07T11:05",
+      "locatie": "Q-NOORD",
+      "omschrijving": "\n';lkjgff  gjgh",
+      "organizerId": 1
+    },
+    {
+      "id": 555998,
+      "titel": "1st test my lets f go",
+      "datum": "2023-11-29T17:46",
+      "locatie": "Q-NOORD",
+      "omschrijving": "Hellurn We go there",
+      "organizerId": 1
+    },
+    {
+      "id": 584972,
+      "titel": "New Test",
+      "datum": "2023-11-28T09:41",
+      "locatie": "Q-NOORD",
+      "omschrijving": "Helurn",
+      "organizerId": 1
+    },
+    {
+      "id": 936413,
+      "titel": "Intro voor DM",
+      "datum": "2023-12-06T08:51",
+      "locatie": "Q-NOORD",
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
+      "organizerId": 1
+    },
+    {
+      "id": 537166,
+      "titel": "Intro voor DMS",
+      "datum": "24-Nov-2023",
+      "locatie": "Q-NOORD",
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
+      "organizerId": 1
+    },
+    {
+      "id": 606483,
+      "titel": "afs",
+      "datum": "2023-11-30T09:29",
+      "locatie": "Q-ZUID",
+      "omschrijving": "sfsssa",
+      "organizerId": 1
+    },
+    {
+      "id": 842163,
+      "titel": "afssd",
+      "datum": "2023-11-29T09:31",
+      "locatie": "ONLINE",
+      "omschrijving": "dfdsg",
+      "organizerId": 1
+    }
+  ],
+  "attendees": []
+}

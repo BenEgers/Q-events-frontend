@@ -1,0 +1,28 @@
+.body{
+    width: 100%;
+    background-color: rgba(10, 30, 80, 0.922);
+    cursor: pointer;
+
+}
+
+.calendar{
+    min-width: 550px;
+}
+
+.calendar .wrapper{
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: #fff;
+    min-width: 340px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+
+}
+
+.spacer{
+    margin: 1rem 0;
+    height: 5px;
+    width: 100%;
+    background-color: rgba(10, 30, 80, 0.922);
+}

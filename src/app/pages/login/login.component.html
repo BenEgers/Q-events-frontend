@@ -1,0 +1,28 @@
+<section class="login-form">
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <h2 class="header">🫱🏾‍🫲🏻👣🕔Welcome back</h2>
+        <h4 *ngIf="mainErrorMessage" class="text-danger">{{mainErrorMessage}}</h4>
+        <div class="form-control-s email">
+            <label for="email">Email:</label>
+            <input type="email" formControlName="email" id="email">
+            <span *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm?.get('email')?.touched) || (isSubmitted && !loginForm.get('email')?.dirty)" class="text-danger">
+                Vul een geldig email adres in!
+            </span>
+        </div>
+        <div class="form-control-s password">
+            <label for="password">password:</label>
+            <input type="password" formControlName="password" id="password">
+            <span *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm?.get('password')?.touched) || (isSubmitted && !loginForm.get('password')?.dirty)" class="text-danger">
+                Password is vereist! (min. 5 chars)
+            </span>
+        </div>
+        <div class="form-control-s submit">
+            <button type="submit" name="submit"  id="submit">Login</button>
+        </div>
+        <div class="form-control-s register">
+            <a id="register" routerLink="/register">Don't have an account yet? Register</a>
+        </div>
+
+    </form>
+    
+</section>
