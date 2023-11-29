@@ -5,6 +5,10 @@
 
 .calendar{
     margin: 2rem 0;
+    overflow-x: auto;
+}
+
+.calendar-body{
     min-width: 550px;
 }
 

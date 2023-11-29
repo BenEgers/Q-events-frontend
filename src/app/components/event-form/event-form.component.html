@@ -24,7 +24,6 @@
                 <option value="Q-Zuid">Q-Zuid</option>
                 <option value="ONLINE">Online</option>
               </select>
-            <!-- <input type="text" formControlName="locatie" id="locatie" class="locatie"> -->
             <div *ngIf="eventForm.get('locatie')?.invalid && (eventForm.get('locatie')?.dirty || eventForm?.get('locatie')?.touched) || (isSubmitted && !eventForm.get('locatie')?.dirty)" class="text-danger">
                 Locatie is vereist!!
             </div>

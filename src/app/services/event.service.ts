@@ -2,6 +2,7 @@ import { Injectable, signal, inject} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import{ Observable} from 'rxjs'
 import { EventModel } from '../models/event.model';
+import { environment } from 'src/environments/environment.development';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,7 +18,8 @@ const httpOptions = {
 export class EventService {
   private http = inject(HttpClient);
   $allEvents = signal<EventModel[]>([]);
-  private apiUrl = 'http://localhost:8080';
+  // private apiUrl = 'http://localhost:8080';
+  private apiUrl = environment.API_URL;
 
 
   getAllEvents(): void {
@@ -35,6 +37,7 @@ export class EventService {
   updateEventInfo(eventModel: EventModel):void {
     this.http.put<EventModel>(`${this.apiUrl}/events/${eventModel.id}`, eventModel, httpOptions).subscribe((updatedEvent) => this.$allEvents.update(events => 
       events.map(event => event.id === eventModel.id ? updatedEvent : event)))
+      location.reload()
 
   }
 

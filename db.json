@@ -83,24 +83,54 @@
       "name": "Ben G4444",
       "email": "test5@test.com",
       "password": "12456"
+    },
+    {
+      "id": 725657,
+      "name": "Ben G",
+      "email": "bengieegers@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": 239741,
+      "name": "Ben G",
+      "email": "test5@test.com",
+      "password": "12345"
+    },
+    {
+      "id": 601303,
+      "name": "Ben G44",
+      "email": "test3@test.com",
+      "password": "12345"
+    },
+    {
+      "id": 986246,
+      "name": "Test4",
+      "email": "test4@test.com",
+      "password": "12345"
+    },
+    {
+      "id": 279568,
+      "name": "Test4",
+      "email": "test4@test.com",
+      "password": "12345"
     }
   ],
   "events": [
     {
       "id": 1,
       "titel": "Intro voor Bootcampers",
-      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
-      "datum": "20-Nov-2023",
+      "datum": "2023-11-28T16:15",
       "locatie": "ONLINE",
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
       "organizerId": 1
     },
     {
+      "id": 3,
       "titel": "Intro voor Medior",
-      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
-      "datum": "20-Dec-2023",
+      "datum": "2024-02-01T13:14",
       "locatie": "ONLINE",
-      "organizerId": 1,
-      "id": 3
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
+      "organizerId": 1
     },
     {
       "titel": "Intro voor Seniors",
@@ -111,43 +141,19 @@
       "id": 4
     },
     {
+      "id": 5,
       "titel": "Intro voor DM",
-      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
-      "datum": "24-Nov-2023",
+      "datum": "2023-11-20T13:15",
       "locatie": "ONLINE",
-      "organizerId": 1,
-      "id": 5
+      "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
+      "organizerId": 1
     },
     {
       "id": 6,
-      "titel": "Intro voor OM",
+      "titel": "Intro voor Test",
       "datum": "2023-11-28T10:15",
-      "locatie": "Q-NOORD",
+      "locatie": "Q-Zuid",
       "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
-      "organizerId": 1
-    },
-    {
-      "id": 289549,
-      "titel": "2nd Test",
-      "datum": "2023-11-30T14:06",
-      "locatie": "Q-NOORD",
-      "omschrijving": "DAladala wait till i get my money right",
-      "organizerId": 1
-    },
-    {
-      "id": 408088,
-      "titel": "New Rest",
-      "datum": "2023-12-04T14:36",
-      "locatie": "Q-NOORD",
-      "omschrijving": "Hellurn Everybody",
-      "organizerId": 1
-    },
-    {
-      "id": 604658,
-      "titel": "Hello There",
-      "datum": "2023-12-01T14:41",
-      "locatie": "Q-NOORD",
-      "omschrijving": "DAFDSFDHFBN",
       "organizerId": 1
     },
     {
@@ -193,8 +199,8 @@
     {
       "id": 145629,
       "titel": "1st test my bwoy",
-      "datum": "2023-11-17T20:08",
-      "locatie": "Q-NOORD",
+      "datum": "2023-11-28T20:08",
+      "locatie": "Q-Zuid",
       "omschrijving": "aSFs",
       "organizerId": 406141
     },
@@ -224,9 +230,9 @@
     },
     {
       "id": 774860,
-      "titel": "",
-      "datum": "2023-11-30T07:52",
-      "locatie": "Q-NOORD",
+      "titel": "2nd Test",
+      "datum": "2023-11-28T07:52",
+      "locatie": "Q-Noord",
       "omschrijving": "w",
       "organizerId": 406141
     },
@@ -249,74 +255,66 @@
     {
       "id": 887421,
       "titel": "Testing testing",
-      "datum": "2023-11-28T11:06",
+      "datum": "2023-11-28T14:06",
       "locatie": "Q-Noord",
-      "omschrijving": "Hello People",
+      "omschrijving": "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
       "organizerId": 1
     },
     {
       "id": 421012,
-      "titel": "2nd Test",
-      "datum": "2023-11-28T13:36",
-      "locatie": "Q-NOORD",
-      "omschrijving": "uuhkk",
-      "organizerId": 1
-    },
-    {
-      "id": 342038,
-      "titel": "2nd Test",
-      "datum": "2023-12-07T11:05",
-      "locatie": "Q-NOORD",
-      "omschrijving": "\n';lkjgff  gjgh",
+      "titel": "Uit eten",
+      "datum": "2023-12-15T19:42",
+      "locatie": "Q-Zuid",
+      "omschrijving": "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
       "organizerId": 1
     },
     {
       "id": 555998,
-      "titel": "1st test my lets f go",
+      "titel": "Angular Presentatie",
       "datum": "2023-11-29T17:46",
-      "locatie": "Q-NOORD",
-      "omschrijving": "Hellurn We go there",
+      "locatie": "Q-Noord",
+      "omschrijving": "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
       "organizerId": 1
     },
     {
       "id": 584972,
       "titel": "New Test",
-      "datum": "2023-11-28T09:41",
-      "locatie": "Q-NOORD",
-      "omschrijving": "Helurn",
+      "datum": "2023-11-29T09:41",
+      "locatie": "Q-Zuid",
+      "omschrijving": "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
       "organizerId": 1
     },
     {
       "id": 936413,
       "titel": "Intro voor DM",
       "datum": "2023-12-06T08:51",
-      "locatie": "Q-NOORD",
+      "locatie": "Q-Zuid",
       "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
       "organizerId": 1
     },
     {
       "id": 537166,
       "titel": "Intro voor DMS",
-      "datum": "24-Nov-2023",
-      "locatie": "Q-NOORD",
+      "datum": "2023-11-29T13:15",
+      "locatie": "Q-Zuid",
       "omschrijving": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, atque. Minima totam incidunt sapiente vitae iure? Accusamus officiis esse totam minus, repudiandae fuga modi",
       "organizerId": 1
     },
     {
-      "id": 606483,
-      "titel": "afs",
-      "datum": "2023-11-30T09:29",
-      "locatie": "Q-ZUID",
-      "omschrijving": "sfsssa",
-      "organizerId": 1
+      "id": 711780,
+      "titel": "2nd Test",
+      "datum": "2023-11-28T14:44",
+      "locatie": "Q-Zuid",
+      "omschrijving": "egtyryy",
+      "organizerId": 725657
     },
     {
-      "id": 842163,
-      "titel": "afssd",
-      "datum": "2023-11-29T09:31",
-      "locatie": "ONLINE",
-      "omschrijving": "dfdsg",
-      "organizerId": 1
+      "id": 833349,
+      "titel": "2nd Test",
+      "datum": "2023-12-02T01:45",
+      "locatie": "Q-Zuid",
+      "omschrijving": "rydyre",
+      "organizerId": 725657
     }
   ],
   "attendees": []

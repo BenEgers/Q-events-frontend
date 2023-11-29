@@ -6,6 +6,10 @@
 }
 
 .calendar{
+    overflow-x: auto;
+}
+
+.calendar-body{
     min-width: 550px;
 }
 

@@ -26,6 +26,7 @@ export class AppComponent implements OnInit{
   
   ngOnInit(): void {
 
+    this.userService.getAllUsers();
     const userId = localStorage.getItem('q_user');
     if(userId == null || userId === 'undefined') {
       this.uiService.redirect('/login')

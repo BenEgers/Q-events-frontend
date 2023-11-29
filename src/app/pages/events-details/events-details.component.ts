@@ -46,10 +46,7 @@ export class EventsDetailsComponent implements OnInit{
   }
 
   deleteEvent() {
-    if(this.hasPassed){
-      this.eventService.deleteEvent(this.currentEvent);
-    }
-
+    this.eventService.deleteEvent(this.currentEvent);
     this.uiService.redirect('/events')
   }
 

@@ -22,7 +22,7 @@
             <a class='cta cta-make' (click)="showForm()">Make New Event +</a>
         </div>
     </div>
-    <full-calendar [options]="calendarOptions" [events]="$calendarEvents()">
+    <full-calendar [options]="calendarOptions" [events]="$calendarEvents()" class="calendar-body">
         <ng-template #eventContent let-arg>
             <div class="body" routerLink='/events/{{arg.event.id}}'>
                 <div class="wrapper">
