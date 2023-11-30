@@ -20,6 +20,10 @@
 
 }
 
+.links .today{
+    cursor: auto;
+}
+
 .spacer{
     margin: 1rem 0;
     height: 5px;

@@ -19,7 +19,10 @@ export class EventsComponent implements OnInit{
   private userService = inject(UserService);
   private eventService = inject(EventService);
   private uiService = inject(UiService);
-;
+
+  ngOnInit(): void {
+    this.eventService.getAllEvents();
+  }
     
 $eventsOfUser = computed(() => {
   const allEvents = this.eventService.$allEvents()
@@ -33,15 +36,14 @@ $eventsOfUser = computed(() => {
 
 })
 
-  showForm() : void{
-    this.uiService.$showEventForm.set(true);
- }
+showForm() : void{
+  this.uiService.$showEventForm.set(true);
+}
 
-  
-  
-  ngOnInit(): void {
-    this.eventService.getAllEvents();
-  }
+goToDashboard(){
+  this.uiService.redirect('/dashboard')
+}
+
 }
 
 function compareDates(event1: EventModel, event2: EventModel): number {

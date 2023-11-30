@@ -14,8 +14,9 @@ h4{
     align-items: flex-start;
 }
 
-.nav-back p{
+.event-heading .nav-back{
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .date-flex{
