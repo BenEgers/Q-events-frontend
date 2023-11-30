@@ -6,7 +6,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { EventFormComponent } from "./components/event-form/event-form.component";
 import { UiService } from './services/ui.service';
 import { UserService } from './services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -25,6 +24,7 @@ export class AppComponent implements OnInit{
   userExist: boolean = false;
   
   ngOnInit(): void {
+    this.userService.getAllUsers();
 
     const userId = localStorage.getItem('q_user');
     if(userId == null || userId === 'undefined') {
