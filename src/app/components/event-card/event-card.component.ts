@@ -14,23 +14,32 @@ import { EventService } from 'src/app/services/event.service';
 export class EventCardComponent implements OnInit{
 
   private eventService = inject(EventService);
+
+  //Input Event object from parent
   @Input() event!: EventModel;
   hasPassed: boolean = false;
   convertedDate: string = '';
-  
+  locationString: string = '';
+
+  //On page load: check if event time is in the past, convert date & convert Location enum
   ngOnInit(): void {
-    this.checkDateTime(this.event);
-    this.convertDateTime(this.event.datum);
+    this.hasPassed = this.checkDateTime(this.event);
+    this.convertedDate = this.convertDateTime(this.event.datum_en_tijd);
+    this.locationString = this.eventService.getLocationString(parseInt(this.event.locatie));
+
   }
 
-  checkDateTime(event: EventModel) : void {
-    const eventDate = new Date(event.datum);
+
+  //Func for checking date
+  checkDateTime(event: EventModel) : boolean {
+    const eventDate = new Date(event.datum_en_tijd);
     const now = new Date();
-    this.hasPassed = now > eventDate;
+     return now > eventDate;
   }
 
-  convertDateTime(datum: string) {
-    this.convertedDate = new Intl.DateTimeFormat('en-GB', {
+  //Func for converting date to en-GB format
+  convertDateTime(datum: string): string {
+    return new Intl.DateTimeFormat('en-GB', {
       dateStyle: 'medium',
       timeStyle: 'short',
       timeZone: 'America/Paramaribo',

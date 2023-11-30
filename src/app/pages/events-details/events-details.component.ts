@@ -18,22 +18,29 @@ export class EventsDetailsComponent implements OnInit{
   private eventService = inject(EventService);
   private uiService = inject(UiService);
   private param!: string | null;
-  currentEvent!: EventModel;
+  currentEvent!: EventModel | null;
   hasPassed: boolean = false;
   convertedDate: string = '';
+  locationString: string = '';
   
-  ngOnInit(): void {
+  async ngOnInit() {
     this.param = this.route.snapshot.paramMap.get('id');
     if(!this.param){
       alert('Route not found!!')
       this.uiService.redirect('/dashboard')
       return;  
     }
-    this.eventService.getOneEvent(this.param).subscribe((event) => {
-      this.currentEvent = event
-      this.checkDateTime(event);
-      this.convertDateTime(event.datum);
-    })    
+    this.currentEvent = await this.eventService.getOneEvent(this.param).then((event) => {
+       return event.data
+    }) 
+    
+    
+
+    if(this.currentEvent){
+      this.checkDateTime(this.currentEvent);
+      this.convertDateTime(this.currentEvent.datum_en_tijd);
+      this.locationString = this.eventService.getLocationString(parseInt(this.currentEvent.locatie));
+    }
   }
 
   showForm() {
@@ -45,13 +52,17 @@ export class EventsDetailsComponent implements OnInit{
     this.uiService.redirect('/events');
   }
 
+  goToDashboard(){
+    this.uiService.redirect('/dashboard');
+  }
+  
   deleteEvent() {
-    this.eventService.deleteEvent(this.currentEvent);
+    this.eventService.deleteEvent(this.currentEvent!);
     this.uiService.redirect('/events')
   }
 
   checkDateTime(event: EventModel) : void {
-    const eventDate = new Date(event.datum);
+    const eventDate = new Date(event.datum_en_tijd);
     const now = new Date();
     this.hasPassed = now > eventDate;
   }

@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="event-card-container-overflow">
-        <app-event-card *ngFor="let event of $eventsOfToday()" [event]="event"></app-event-card>
+        <app-event-card *ngFor="let event of this.$eventsOfToday()" [event]="event"></app-event-card>
     </div>
 </section>
 <div class="spacer"></div>

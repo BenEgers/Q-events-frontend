@@ -1,8 +1,9 @@
 import { Injectable, signal, inject} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http'
-import{ Observable} from 'rxjs'
+import {HttpHeaders} from '@angular/common/http'
 import { EventModel } from '../models/event.model';
-import { environment } from 'src/environments/environment.development';
+import { initSupabase } from '../utils/initSupabase';
+import { PostgrestError, SupabaseClient, createClient } from '@supabase/supabase-js';
+
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,33 +17,111 @@ const httpOptions = {
 })
 
 export class EventService {
-  private http = inject(HttpClient);
-  $allEvents = signal<EventModel[]>([]);
-  // private apiUrl = 'http://localhost:8080';
-  private apiUrl = environment.API_URL;
+  $allEventsofUser = signal<EventModel[]>([]);
+  supabase: SupabaseClient = createClient(initSupabase.supabaseUrl, initSupabase.supabasePublicKey);
 
+  public async getEventsOfUser(id: number): Promise<{ data: EventModel[] | null}> {
+    const {data, error} = await this.supabase
+    .from("events")
+    .select()
+    .eq('organizer_id', id)
 
-  getAllEvents(): void {
-    this.http.get<EventModel[]>(`${this.apiUrl}/events`).subscribe((events) => this.$allEvents.set(events));
+    this.$allEventsofUser.set(data!)
+    return {data}
   }
 
-  getOneEvent(id: string): Observable<EventModel> {
-    return this.http.get<EventModel>(`${this.apiUrl}/events/${id}`);
+  public async getOneEvent(id: string): Promise<{ data: EventModel | null}> {
+    const idNumb = parseInt(id)
+    const {data, error} = await this.supabase
+    .from("events")
+    .select()
+    .eq('id',  idNumb)
+    .single()
+
+    return {data}
   }
 
-  createEvent(eventModel: EventModel): void {
-    this.http.post<EventModel>(`${this.apiUrl}/events`, eventModel, httpOptions).subscribe(() => this.$allEvents.mutate(events => events.push(eventModel)))
+  public async createEvent(eventModel: EventModel) : Promise<{ data: EventModel | null}> {
+    const {id, titel, datum_en_tijd, locatie, omschrijving, organizer_id} = eventModel;
+    const {data, error} = await this.supabase
+    .from("events")
+    .insert({id, locatie, organizer_id, titel, omschrijving, datum_en_tijd})
+    
+    this.$allEventsofUser.mutate(events => events.push(eventModel))
+    return {data}
   }
 
-  updateEventInfo(eventModel: EventModel):void {
-    this.http.put<EventModel>(`${this.apiUrl}/events/${eventModel.id}`, eventModel, httpOptions).subscribe((updatedEvent) => this.$allEvents.update(events => 
-      events.map(event => event.id === eventModel.id ? updatedEvent : event)))
+  public async updateEventInfo(eventModel: EventModel):Promise<{ data: EventModel | null}> {
+    const {id, titel, datum_en_tijd, locatie, omschrijving, organizer_id} = eventModel;
+    const {data, error} = await this.supabase
+    .from("events")
+    .insert({id, locatie, organizer_id, titel, omschrijving, datum_en_tijd})
+
+    this.$allEventsofUser.update(events => 
+      events.map(event => event.id === eventModel.id ? eventModel : event))
+    
       location.reload()
 
+    return {data}
+
   }
 
-  deleteEvent(eventModel: EventModel): void {
-    this.http.delete<EventModel>(`${this.apiUrl}/events/${eventModel.id}`).subscribe(() => this.$allEvents.set( this.$allEvents().filter(event => event.id !== eventModel.id)));
+  public async deleteEvent(eventModel: EventModel): Promise<boolean> {
+    const {id} = eventModel;
+    let succes: boolean = false;
+    
+    const {data, error} = await this.supabase
+    .from("events")
+    .delete()
+    .eq('id', id)
+    
+    if(error == null){
+      succes = true;
+      this.$allEventsofUser.set( this.$allEventsofUser().filter(event => event.id !== eventModel.id));
+    }
+    return succes;
+  }
+
+
+  //Get String value of location enum
+  public getLocationString(enumNumber: number): string {
+    let locationString: string;
+    switch (enumNumber) {
+      case 0:
+        locationString = 'Q-Zuid'
+        break;
+      case 1:
+        locationString = 'Q-Noord'
+        break;
+      case 2:
+        locationString = 'Online'
+        break;
+      default:
+        locationString = 'TBD'
+    }
+
+    return locationString;
+  }
+
+
+  //Get location enum value, before storing in db
+  public getLocationEnum(enumString: string | null | undefined): string {
+    let locationEnum: string;
+    switch (enumString) {
+      case 'Q-Zuid':
+        locationEnum = '0'
+        break;
+      case 'Q-Noord':
+        locationEnum = '1'
+        break;
+      case 'Online':
+        locationEnum = '2'
+        break;
+      default:
+        locationEnum = '0'
+    }
+
+    return locationEnum;
   }
 
 }

@@ -1,135 +1,125 @@
-import { Injectable, inject, signal } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http'
-import{ Observable} from 'rxjs'
+import { Injectable, OnInit, inject, signal } from '@angular/core';
 import { User } from '../models/user.model';
 import { UserAuth } from '../models/userAuth.model';
 import { UiService } from './ui.service';
-import { environment } from 'src/environments/environment.development';
 import { initSupabase } from '../utils/initSupabase';
 import { PostgrestError, SupabaseClient, createClient } from '@supabase/supabase-js';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-}
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService{
-  private http = inject(HttpClient)
   private uiService = inject(UiService)
-
-  supabase: SupabaseClient = createClient(initSupabase.supabaseUrl, initSupabase.supabasePublicKey);
-  // private apiUrl = 'http://localhost:8080';
-  private apiUrl = environment.API_URL;
-
   $users = signal<User[]>([]);
   $isLoggedIn = signal<boolean>(false);
-  activeUserId: number | undefined;
+  $activeUserId =  signal<number | undefined> ( undefined);
 
-
-//   const {message, msg_id, created} = messageDTO;
-
-//   const {data, error} = await this.supabase
-//     .from("messages")
-//     .insert({message, msg_id, created})
-//   return {data, error}
-// }
+  supabase: SupabaseClient = createClient(initSupabase.supabaseUrl, initSupabase.supabasePublicKey);
   
   setActiveUser(userId: number) {
-    this.activeUserId = userId
+    this.$activeUserId.set(userId)
   }
 
 
-  public async getAllUsers(): Promise<{ data: any[] | null; error: PostgrestError | null; }> {
-
-    // this.http.get<User[]>(`${this.apiUrl}/users`).subscribe({
-    //   next: users => this.$users.set(users)
-    // });
+  public async getAllUsers(): Promise<{ data: User[] | null}> {
 
     const {data, error} = await this.supabase
       .from("users")
       .select()
+      .returns<User[]>()
 
-      console.log(data)
-      data && this.$users.set(data);
-    return {data, error}
-
-
+    data && this.$users.set(data);
+    
+    return {data}
   }
 
-  public async getOneUser(id: number): Promise<{ data: any[] | null; error: PostgrestError | null; }> {
-    // return this.http.get<User>(`${this.apiUrl}/users/${id}`);
+  public async getOneUser(email: string): Promise<{ data: User | null}> {
     const {data, error} = await this.supabase
     .from("users")
     .select()
-    .eq('id', id)
+    .eq('email', email)
     .single()
 
-    console.log(data)
-    console.log(error)
-  return {data, error}
+  return {data}
   }
 
-  public async createUser(user: User): Promise<{ data: any[] | null; error: PostgrestError | null; }> {
-    
-    this.http.post<User>(`${this.apiUrl}/users`, user, httpOptions).subscribe({
-      next: user => this.$users.update(prevUsers => [...prevUsers, user])
-    });
+  public async createUser(user: User): Promise<{ data: User | null; error: PostgrestError | null; }> {
+
     const {id, email, name, password} = user;
     const {data, error} = await this.supabase
     .from("users")
     .insert({id, email, name, password})
-    data && (this.activeUserId = user.id);
-    console.log(data);
+    data && (this.$activeUserId.set(user.id));
+    data && this.$users.update(prevUsers => [...prevUsers, user])
+
     return {data, error}
 
-
   }
 
-  updateUserInfo(user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/users/${user.id}`, user, httpOptions);
+  public async updateUserInfo(user: User): Promise<{ data: any[] | null; error: PostgrestError | null; }>  {
+
+    const {id, email, name, password} = user;
+    const {data, error} = await this.supabase
+    .from("users")
+    .update({id, email, name, password})
+    return {data, error}
   }
 
-  deleteUser(user: User): void {
-    this.http.delete<User>(`${this.apiUrl}/users/${user.id}`);
+  public async deleteUser(user: User): Promise<{ data: any[] | null; error: PostgrestError | null; }> {
+    const {id} = user;
+    const {data, error} = await this.supabase
+    .from("users")
+    .delete()
+    .eq('id', id)
+
+    return {data, error}
   }  
 
-  login(user: UserAuth): boolean {
-    const allUsers = this.$users();
-    const userAttempt: User | undefined = allUsers.find(account => account.email === user.email)
+  public async login(user: UserAuth): Promise<boolean> {
+    let succes: boolean = false;
+    const {email} = user;
+    const userAttempt: User | null = (await this.getOneUser(email))?.data;
 
-    if(userAttempt &&  this.checkPasswordMatch(user, userAttempt)){
-      this.activeUserId = userAttempt.id;
+    if(userAttempt && this.checkPasswordMatch(user, userAttempt)){
+      succes = true;
+      this.$activeUserId.set(userAttempt.id);
       localStorage.setItem('q_user', `${userAttempt.id}`)
-      this.$isLoggedIn.set(true);
-      return true;
-    } else{
-      return false;    
-    }
+      this.$isLoggedIn.set(true);                                                                                                                                                                                                                                     
+    } 
 
+    return succes;
   }
 
-  register(user: User) {
-    this.createUser(user)
-    localStorage.setItem('q_user', `${user.id}`)
-    this.activeUserId = user.id;
-    this.$isLoggedIn.set(true);
-    this.uiService.redirect('/login');
+  public async register(user: User): Promise<boolean> {
+    let succes: boolean = false;
+    
+    const {error} = await this.createUser(user);
+
+    if(error == null){
+      succes = true;
+      localStorage.setItem('q_user', `${user.id}`)
+      this.$activeUserId.set(user.id);
+      this.$isLoggedIn.set(true);
+    }
+
+    return succes;
+
   }
 
   logout(): void {
-    this.activeUserId = undefined;
+    this.$activeUserId.set(undefined);
+
+    //Change 'token' in localstorage
     localStorage.setItem('q_user', 'undefined');
+    //Change loggedIn signal
     this.$isLoggedIn.set(false)
     this.uiService.redirect('/login');
   }
 
+  //Check if pw from user, matches the one form the db
   checkPasswordMatch(userAttempt: UserAuth, userFound: User){
-    return (userAttempt.email === userFound.email && userAttempt.password === userFound.password)
+    return (userAttempt.email === userFound.email && userAttempt.password == userFound.password)
   }
 
 }

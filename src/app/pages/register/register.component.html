@@ -1,6 +1,7 @@
 <section class="sign-up-form">
     <form class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         <h2 class="header">🥳🌏🏟️Hello there!</h2>
+        <h4 *ngIf="mainErrorMessage" class="text-danger text-center">{{mainErrorMessage}}</h4>
         <div class="form-control-s name">
             <label for="titel">Voornaam & Achternaam:</label>
             <input type="text" formControlName="name" id="name">

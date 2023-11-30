@@ -1,5 +1,5 @@
 export enum Locatie {
-    Q_NOORD = "Q-NOORD",
-    Q_ZUID = "Q-ZUID",
-    ONLINE = "ONLINE"
+    Q_ZUID = "1",
+    Q_NOORD = "2",
+    ONLINE = "3"
 }

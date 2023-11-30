@@ -1,4 +1,4 @@
-<div class="card" [ngClass]="{'owner': event.organizerId == 1, 'late': hasPassed}">
+<div class="card" [ngClass]="{'owner': event.organizer_id == 1, 'late': hasPassed}">
     <div class="heading">
         <h3>{{event.titel}}</h3>
         <div class="date-flex">
@@ -18,7 +18,7 @@
 
     <div class="footing">
         <div class="locatie">
-            <h4>Locatie: <span>{{event.locatie}}</span></h4>
+            <h4>Locatie: <span>{{locationString}}</span></h4>
         </div>
         <div class="cta-2" [ngClass]="{'red': hasPassed, 'green': !hasPassed}">
             <button type="button" routerLink="/events/{{event.id}}">See Details</button>

@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -14,19 +14,16 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
   styleUrls: ['./nav.component.css'],
   viewProviders: [provideIcons({matLogInSharp})]
 })
-export class NavComponent implements OnInit{
+export class NavComponent{
 
-  constructor(private router: Router){}
+  constructor(){}
   
   private userService = inject(UserService);
+  private router = inject(Router);
   
-  isLoggedIn = computed(() => {
-    return this.userService.$isLoggedIn()
-  })
   
-  ngOnInit(): void {
-    
-  }
+  isLoggedIn = this.userService.$isLoggedIn
+
 
   isActive(route: string){
     return this.router.url == route;

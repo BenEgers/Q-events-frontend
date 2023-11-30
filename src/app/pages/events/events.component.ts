@@ -14,39 +14,37 @@ import { UiService } from 'src/app/services/ui.service';
     styleUrls: ['./events.component.css'],
     imports: [CommonModule, EventCardComponent, EventFormComponent]
 })
-export class EventsComponent implements OnInit{
+export class EventsComponent{
   
   private userService = inject(UserService);
   private eventService = inject(EventService);
   private uiService = inject(UiService);
-;
-    
-$eventsOfUser = computed(() => {
-  const allEvents = this.eventService.$allEvents()
-  const activeUserId = this.userService.activeUserId
+
+
+  //Get events of 'today' from $allEventsofUser signal en filter by date, then sort asc.
+  $eventsOfUser = computed(() => {
+  const activeUserId = this.userService.$activeUserId()
   
   if(!activeUserId) {
     return null;
   }
-  const evntsUnOrderd =  allEvents.filter((evnt: EventModel) => evnt.organizerId == activeUserId);
+
+  const evntsUnOrderd =  this.eventService.$allEventsofUser().filter((evnt: EventModel) => evnt.organizer_id == activeUserId);
   return evntsUnOrderd.sort(function(a,b) { return compareDates(a, b)})
 
-})
+  })
 
+    //show event form by changing $showForm signal to true
   showForm() : void{
     this.uiService.$showEventForm.set(true);
- }
-
-  
-  
-  ngOnInit(): void {
-    this.eventService.getAllEvents();
   }
+
 }
 
+//Func to compare dates. (For sorting asc)
 function compareDates(event1: EventModel, event2: EventModel): number {
-  const date1 = new Date(event1.datum);
-  const date2 = new Date(event2.datum);
+  const date1 = new Date(event1.datum_en_tijd);
+  const date2 = new Date(event2.datum_en_tijd);
   if (date1 < date2) {
     //Date A is before Date B
     return -1;

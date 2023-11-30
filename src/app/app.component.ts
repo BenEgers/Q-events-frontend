@@ -6,7 +6,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { EventFormComponent } from "./components/event-form/event-form.component";
 import { UiService } from './services/ui.service';
 import { UserService } from './services/user.service';
-import { Router } from '@angular/router';
+import { EventService } from './services/event.service';
 
 @Component({
     selector: 'app-root',
@@ -20,25 +20,30 @@ export class AppComponent implements OnInit{
   
   private uiService = inject(UiService);
   private userService = inject(UserService);
+  private eventService = inject(EventService);
 
   uId: number | undefined= undefined;
   userExist: boolean = false;
   
   ngOnInit(): void {
 
-    this.userService.getAllUsers();
+    //Get 'token' userId on intial page load.
     const userId = localStorage.getItem('q_user');
+
+    //If no token found or 'undefined' (means logged out), redirect to login page
     if(userId == null || userId === 'undefined') {
       this.uiService.redirect('/login')
       return;
     }
 
-
+    //If Logged in set active userId, loggedIn to true & getAllEventsOfUser, regardless of the active page.
     this.uId = parseInt(userId!);
     this.userService.setActiveUser(this.uId);
     this.userService.$isLoggedIn.set(true);
+    this.eventService.getEventsOfUser(this.uId);
   }  
   
+  //Signal for when to show eventform.
   showForm = computed(() => {
     const formShowing = this.uiService.$showEventForm();
     return formShowing;

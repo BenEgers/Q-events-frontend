@@ -22,7 +22,7 @@
                 <option value="" disabled selected hidden>Kies een locatie</option>
                 <option value="Q-Noord">Q-Noord</option>
                 <option value="Q-Zuid">Q-Zuid</option>
-                <option value="ONLINE">Online</option>
+                <option value="Online">Online</option>
               </select>
             <div *ngIf="eventForm.get('locatie')?.invalid && (eventForm.get('locatie')?.dirty || eventForm?.get('locatie')?.touched) || (isSubmitted && !eventForm.get('locatie')?.dirty)" class="text-danger">
                 Locatie is vereist!!

@@ -1,6 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EventModel } from 'src/app/models/event.model';
 import { EventService } from 'src/app/services/event.service';
 import { UserService } from 'src/app/services/user.service';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -24,28 +23,19 @@ export class CalendarComponent {
   private eventService = inject(EventService);
   private uiService = inject(UiService);
   
-  public activeUserId = this.userService.activeUserId;
+  public activeUserId = this.userService.$activeUserId();
 
   ngOnInit(): void {
-    this.eventService.getAllEvents();
+    this.activeUserId && this.eventService.getEventsOfUser(this.activeUserId);
   }
   
-  $eventsOfUser = computed(() => {
-    const allEvents = this.eventService.$allEvents();
-    const activeUserId = this.userService.activeUserId;
-    
-    if(!activeUserId) {
-      return null;
-    }
-    return  allEvents.filter((evnt: EventModel) => evnt.organizerId == activeUserId);    
-  })
 
   $calendarEvents = computed(() => {
     let calEvents: CalendarItem[] = []
     let item: CalendarItem;
     let date: Date 
-    this.$eventsOfUser()?.map(event => {
-      date = new Date(event.datum);
+    this.eventService.$allEventsofUser()?.map(event => {
+      date = new Date(event.datum_en_tijd);
       item = new CalendarItem(`${event.id}`,event.titel, date);
       calEvents.push(item);
     })
