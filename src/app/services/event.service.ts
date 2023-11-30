@@ -55,7 +55,8 @@ export class EventService {
     const {id, titel, datum_en_tijd, locatie, omschrijving, organizer_id} = eventModel;
     const {data, error} = await this.supabase
     .from("events")
-    .insert({id, locatie, organizer_id, titel, omschrijving, datum_en_tijd})
+    .update({locatie, organizer_id, titel, omschrijving, datum_en_tijd})
+    .eq('id', id)
 
     this.$allEventsofUser.update(events => 
       events.map(event => event.id === eventModel.id ? eventModel : event))
