@@ -23,9 +23,14 @@
     justify-content: space-between;
 }
 
+.heading h3{
+    flex: 1;
+}
+
 .date-flex{
     display: flex;
     gap: 5px;
+    flex: 1;
 }
 
 .date-flex svg{
