@@ -6,7 +6,7 @@
             <input type="text" formControlName="titel" id="titel" class="titel">
 
             <div *ngIf="eventForm.get('titel')?.invalid && (eventForm.get('titel')?.dirty || eventForm?.get('titel')?.touched) || (isSubmitted && !eventForm.get('titel')?.dirty)" class="text-danger">
-                Titel van het evenement is vereist!!
+                Titel van het evenement is vereist!! max(25)
             </div>
         </div>
         <div class="form-control-s datum">

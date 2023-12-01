@@ -31,7 +31,7 @@ export class EventFormComponent {
 
   //Eventform with initial values & validations.
   eventForm = this.formBuilder.group({
-    titel: [this.editingEvent ? this.editingEvent.titel : '', [Validators.required]],
+    titel: [this.editingEvent ? this.editingEvent.titel : '', [Validators.required, Validators.maxLength(25)]],
     datum: [this.editingEvent ? this.editingEvent.datum_en_tijd :'', [Validators.required]],
     locatie: [this.editingEvent ? this.locationString :'', [Validators.required]],
     omschrijving: this.editingEvent ? this.editingEvent.omschrijving : ''
