@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { UiService } from 'src/app/services/ui.service';
-import { UserDTO } from 'src/app/models/userDTO.model';
 import { Router, RouterModule } from '@angular/router';
+import { UserAuth } from 'src/app/models/userAuth.model';
+import { unsubscribe } from 'diagnostics_channel';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit{
     password: ['', [Validators.required]],
   })
 
-  onSubmit() {
+  async onSubmit() {
 
     this.isSubmitted = true;
     
@@ -49,21 +50,41 @@ export class LoginComponent implements OnInit{
       return;
     }
 
-    const newUser: UserDTO = {
+    const newUser: UserAuth = {
       email: this.loginForm.value.email!,
       password: this.loginForm.value.password!,
     }
 
-    const succes = this.userService.login(newUser);
 
-    if(!succes){
+
+  this.userService.login(newUser).subscribe({
+    next: (value: number) => {
+      // Handle the value or perform the next action here
+      this.handleLoginResult(value);
+    },
+    error: (error: any) => {
+      // Handle errors if needed
+      console.error('Login failed', error);
+    },
+    complete: () => {
+    }
+  }).unsubscribe;
+}
+
+  handleLoginResult(value: number): void {
+    // Perform the next action based on the value
+    if (value === 0) {
       this.mainErrorMessage = 'Username or Password are incorrrect'
       this.isSubmitted = false;
-      return;
+    } else {
+      this.userService.setActiveUser(value);
+      localStorage.setItem('q_user', `${value}`)
+      this.userService.$isLoggedIn.set(true);
+
+      console.log("login succes")
+      
+      this.uiService.redirect('/dashboard');
     }
-    
-    this.uiService.redirect('/dashboard');
-    
   }
 
 }

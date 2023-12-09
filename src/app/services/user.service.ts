@@ -4,6 +4,8 @@ import{ Observable} from 'rxjs'
 import { User } from '../models/user.model';
 import { UserAuth } from '../models/userAuth.model';
 import { UiService } from './ui.service';
+import { UserDTO } from '../models/userDTO.model';
+import { UserCreationDTO } from '../models/userCreation.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,34 +20,43 @@ const httpOptions = {
 export class UserService{
   private http = inject(HttpClient)
   private uiService = inject(UiService)
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'http://localhost:8080/api';
 
-  $users = signal<User[]>([]);
+  $users = signal<UserDTO[]>([]);
   $isLoggedIn = signal<boolean>(false);
   activeUserId: number | undefined;
 
   getAllUsers(): void {
-    this.http.get<User[]>(`${this.apiUrl}/users`).subscribe({
+    this.http.get<UserDTO[]>(`${this.apiUrl}/users/all`).subscribe({
       next: users => this.$users.set(users)
     });
   }
 
-  getOneUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/users/${id}`);
+  findByName(name: string): Observable<UserDTO> {
+    return this.http.get<UserDTO>(`${this.apiUrl}/users/find/${name}`);
+  }
+  findById(userId: number): Observable<UserDTO> {
+    return this.http.get<UserDTO>(`${this.apiUrl}/users/find/id/${userId}`);
   }
 
-  createUser(user: User): void {
-    this.http.post<User>(`${this.apiUrl}/users`, user, httpOptions).subscribe({
-      next: user => this.$users.update(prevUsers => [...prevUsers, user])
-    });
+  searchByName(searchValue: string): Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>(`${this.apiUrl}/users/search/${searchValue}`);
   }
 
-  updateUserInfo(user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/users/${user.id}`, user, httpOptions);
+  // getOneUser(id: number): Observable<UserDTO> {
+  //   return this.http.get<UserDTO>(`${this.apiUrl}/users/${id}`);
+  // }
+
+  createUser(user: UserCreationDTO): Observable<number> {
+    return this.http.post<number>(`${this.apiUrl}/users`, user, httpOptions);
   }
 
-  deleteUser(user: User): void {
-    this.http.delete<User>(`${this.apiUrl}/users/${user.id}`);
+  updateUserInfo(user: UserDTO): Observable<UserDTO> {
+    return this.http.put<UserDTO>(`${this.apiUrl}/users/${user.id}`, user, httpOptions);
+  }
+
+  deleteUser(user: UserDTO): void {
+    this.http.delete<UserDTO>(`${this.apiUrl}/users/${user.id}`);
   }
 
   setActiveUser(userId: number) {
@@ -53,27 +64,27 @@ export class UserService{
   }
   
 
-  login(user: UserAuth): boolean {
-    const allUsers = this.$users();
-    const userAttempt: User | undefined = allUsers.find(account => account.email === user.email)
-
-    if(userAttempt &&  this.checkPasswordMatch(user, userAttempt)){
-      this.activeUserId = userAttempt.id;
-      localStorage.setItem('q_user', `${userAttempt.id}`)
-      this.$isLoggedIn.set(true);
-      return true;
-    } else{
-      return false;    
-    }
+    login(user: UserAuth): Observable<number> {
+    return this.http.post<number>(`${this.apiUrl}/auth`, user, httpOptions);
 
   }
 
-  register(user: User) {
-    this.createUser(user)
-    localStorage.setItem('q_user', `${user.id}`)
-    this.activeUserId = user.id;
-    this.$isLoggedIn.set(true);
-    this.uiService.redirect('/login');
+  register(user: UserCreationDTO) {
+    let result:number = 0;
+    
+    this.createUser(user).subscribe(
+      (id) => {
+        if(id == 0) {
+          console.log("Error registering user")
+          return;
+        }
+    
+        localStorage.setItem('q_user', `${id}`)
+        this.activeUserId = id;
+        this.$isLoggedIn.set(true);
+        this.uiService.redirect('/dashboard');
+      }  
+    );
   }
 
   logout(): void {
@@ -81,9 +92,11 @@ export class UserService{
     localStorage.setItem('q_user', 'undefined');
     this.$isLoggedIn.set(false)
     this.uiService.redirect('/login');
+    location.reload();
+    
   }
 
-  checkPasswordMatch(userAttempt: UserAuth, userFound: User){
+  checkPasswordMatch(userAttempt: UserAuth, userFound: UserAuth){
     return (userAttempt.email === userFound.email && userAttempt.password === userFound.password)
   }
 

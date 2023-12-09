@@ -3,7 +3,7 @@
         <h2 class="header">🎆🎊Create Event</h2>
         <div class="form-control-s titel">
             <label for="titel">Titel:</label>
-            <input type="text" formControlName="titel" id="titel" class="titel">
+            <input type="text" placeholder="Titel van het evenement" formControlName="titel" id="titel" class="titel">
 
             <div *ngIf="eventForm.get('titel')?.invalid && (eventForm.get('titel')?.dirty || eventForm?.get('titel')?.touched) || (isSubmitted && !eventForm.get('titel')?.dirty)" class="text-danger">
                 Titel van het evenement is vereist!!
@@ -20,21 +20,46 @@
             <label for="locatie">Locatie:</label>
             <select name="locatie" formControlName="locatie" id="locatie">
                 <option value="" disabled selected hidden>Kies een locatie</option>
-                <option value="Q-Noord">Q-Noord</option>
-                <option value="Q-Zuid">Q-Zuid</option>
+                <option value="QZUID">Q-Zuid</option>
+                <option value="QNOORD">Q-Noord</option>
                 <option value="ONLINE">Online</option>
               </select>
-            <!-- <input type="text" formControlName="locatie" id="locatie" class="locatie"> -->
             <div *ngIf="eventForm.get('locatie')?.invalid && (eventForm.get('locatie')?.dirty || eventForm?.get('locatie')?.touched) || (isSubmitted && !eventForm.get('locatie')?.dirty)" class="text-danger">
                 Locatie is vereist!!
             </div>
         </div>
         <div class="form-control-s omschrijving">
             <label for="omschrijving">omschrijving:</label>
-            <textarea formControlName="omschrijving" id="omschrijving" class="omschrijving">
-    
-            </textarea>
+            <textarea formControlName="omschrijving" id="omschrijving" class="omschrijving"></textarea>
         </div>
+        <div class="form-control-s deelnemers">
+            <!-- <ejs-multiselect id='multiselectelement' formControlName="deelnemers"
+            [fields]='fields' [mode]='mode' [allowFiltering]='true' [dataSource]='$usersSelect()' [popupHeight]='popupHeight' [popupWidth]='popupWidth' [placeholder]='placeholder'></ejs-multiselect>
+            <div *ngIf="eventForm.get('deelnemers')?.invalid && (eventForm.get('deelnemers')?.dirty) || (isSubmitted && !eventForm.get('deelnemers')?.dirty)" class="text-danger">
+                Selecteer tenminste 1 deelnemer!!
+            </div> -->
+
+            <ng-multiselect-dropdown
+                [placeholder]="placeholder"
+                [settings]="dropdownSettings"
+                [data]="$usersSelect()"
+                formControlName="deelnemers"
+                (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)"
+            >
+            </ng-multiselect-dropdown>
+        </div>
+        <div class="form-control-s attachment">
+            <div class="custom-file-input">
+                <input type="file" #fileInput multiple formControlName="attachment" />
+                <label for="fileInput">Add attachment</label>
+                <div>{{ getSelectedFileNames() }}</div>
+            </div>
+            <div *ngIf="editingEvent" class="text-current-files"> 
+                <span>Current attachment:</span> {{editingEvent && (editingEvent.files && editingEvent.files[0].fileName)}}
+            </div>
+        </div>
+
         <div class="form-control-s submit">
             <button type="submit" name="submit"  id="submit">{{submitBtnText}}</button>
         </div>
@@ -42,3 +67,4 @@
     </form>
     
 </section>
+

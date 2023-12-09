@@ -1,7 +1,8 @@
 import { Injectable, signal, inject} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import{ Observable} from 'rxjs'
-import { EventModel } from '../models/event.model';
+import { EventDTO } from '../models/eventDTO.model';
+import { EventFile } from '../models/eventFile.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,31 +16,55 @@ const httpOptions = {
 })
 
 export class EventService {
+
   private http = inject(HttpClient);
-  $allEvents = signal<EventModel[]>([]);
-  private apiUrl = 'http://localhost:8080';
+  $eventsOfUser = signal<EventDTO[]>([]);
+  private apiUrl = 'http://localhost:8080/api';
 
+  // getAllEvents(): void {
+  //   this.http.get<EventDTO[]>(`${this.apiUrl}/events/all`).subscribe({
+  //     next: events => this.$allEvents.set(events)
+  //   });
+  // }
 
-  getAllEvents(): void {
-    this.http.get<EventModel[]>(`${this.apiUrl}/events`).subscribe((events) => this.$allEvents.set(events));
+  getEventsOfUser(userId: number): void {
+    this.http.get<EventDTO[]>(`${this.apiUrl}/events/user/${userId}`).subscribe({
+      next: events => this.$eventsOfUser.set(events)
+    });
   }
 
-  getOneEvent(id: string): Observable<EventModel> {
-    return this.http.get<EventModel>(`${this.apiUrl}/events/${id}`);
+  getEventsWithUser(userId: number): void {
+    this.http.get<EventDTO[]>(`${this.apiUrl}/events/deelnemer/${userId}`).subscribe({
+      next: events => this.$eventsOfUser.set(events)
+    });
   }
 
-  createEvent(eventModel: EventModel): void {
-    this.http.post<EventModel>(`${this.apiUrl}/events`, eventModel, httpOptions).subscribe(() => this.$allEvents.mutate(events => events.push(eventModel)))
+  findByTitel(titel: string): Observable<EventDTO> {
+    return this.http.get<EventDTO>(`${this.apiUrl}/events/${titel}`);;
   }
 
-  updateEventInfo(eventModel: EventModel):void {
-    this.http.put<EventModel>(`${this.apiUrl}/events/${eventModel.id}`, eventModel, httpOptions).subscribe((updatedEvent) => this.$allEvents.update(events => 
-      events.map(event => event.id === eventModel.id ? updatedEvent : event)))
-
+  searchByTitel(searchValue: string): Observable<EventDTO[]> {
+    return this.http.get<EventDTO[]>(`${this.apiUrl}/events/search/${searchValue}`);
   }
 
-  deleteEvent(eventModel: EventModel): void {
-    this.http.delete<EventModel>(`${this.apiUrl}/events/${eventModel.id}`).subscribe(() => this.$allEvents.set( this.$allEvents().filter(event => event.id !== eventModel.id)));
+  getOneEvent(id: string): Observable<EventDTO> {
+    return this.http.get<EventDTO>(`${this.apiUrl}/events/find/${id}`);
+  }
+
+  createEvent(eventDTO: EventDTO): void {
+    this.http.post<EventDTO>(`${this.apiUrl}/events`, eventDTO, httpOptions).subscribe((responseDTO) => this.$eventsOfUser.mutate(events => events.push(responseDTO)))
+  }
+
+  updateEventInfo(eventDTO: EventDTO):Observable<EventDTO> {
+    return this.http.put<EventDTO>(`${this.apiUrl}/events/update`, eventDTO, httpOptions);
+  }
+
+  deleteEvent(eventDTO: EventDTO): void {
+    this.http.delete<EventDTO>(`${this.apiUrl}/events/${eventDTO.id}`).subscribe(() => this.$eventsOfUser.set( this.$eventsOfUser().filter(event => event.id !== eventDTO.id)));
+  }
+
+  uploadFile(formData: FormData): Observable<EventFile> {
+    return this.http.post<EventFile>(`${this.apiUrl}/files`, formData)
   }
 
 }

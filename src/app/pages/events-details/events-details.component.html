@@ -5,7 +5,7 @@
         </div>
 
         <div class="title">
-            <h2>{{currentEvent && currentEvent.titel}}</h2>
+            <h2>{{$currentEvent() && $currentEvent()!.titel}}</h2>
             <div class="date-flex">
                 <svg  [ngClass]="{'late': hasPassed}" xmlns="http://www.w3.org/2000/svg" fill='none' viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -25,12 +25,12 @@
 
     <div class="event-body">
         <div class="omschrijving">
-            <p>{{currentEvent && currentEvent.omschrijving}}</p>
+            <p>{{$currentEvent() && $currentEvent()!.omschrijving}}</p>
         </div>
 
         <div class="locatie">
             <h4>Locatie:</h4>
-            <h4 class="loc">{{currentEvent && currentEvent.locatie}}</h4>
+            <h4 class="loc">{{$currentEvent() && $currentEvent()!.locatie}}</h4>
         </div>
         <div class="edit" (click)="showForm()">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -38,4 +38,12 @@
               </svg>              
         </div>
     </div>
+<!-- 
+    <div class="flex justify-content-center">
+        <p-multiSelect [options]="$users" [(ngModel)]="selectedUsers" placeholder="Select Participants" optionLabel="name" display="chip" [showClear]="true"></p-multiSelect>
+    </div> -->
+    <!-- <div class="card flex justify-content-center">
+        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" [showClear]="true"></p-multiSelect>
+    </div> -->
+
 </div>

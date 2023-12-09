@@ -1,13 +1,11 @@
 export class Deelnemers {
-    id?: number;
-    eventId!: number;
-    deelnemerId!: number;
+    eventId: number;
+    deelnemerId: number;
 
     
-    constructor(eventId: number, deelnemerId: number, id?: number){
+    constructor(eventId: number, deelnemerId: number){
         this.eventId = eventId,
-        this.deelnemerId = deelnemerId,
-        this.id = id
+        this.deelnemerId = deelnemerId
 
     }
 }

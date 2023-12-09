@@ -1,16 +1,31 @@
 .event-form{
     position: fixed;
     width: 100%;
-    height: 100%;
-    top: 2rem;
+    height: 100vh;
+    top: 0;
     left: 0;
+    padding-top: 9rem;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     background-color: rgba(0,0,0,0.5);
     z-index: 400;
+    overflow-y: auto;
 
 }
+
+.form{
+    width: 80%;
+    max-width: 450px;
+    height: max-content;
+    max-height: 80vh;
+    background-color: #ccc;
+    padding: 10px 1rem;
+    border-radius: 2px;
+    overflow-y: auto;
+
+}
+
 
 .header{
     text-align: center;
@@ -18,18 +33,11 @@
 
 }
 
-.form{
-    width: 80%;
-    max-width: 450px;
-    background-color: #ccc;
-    padding: 10px 1rem;
-    border-radius: 2px;
-}
 
 .form-control-s{
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
 }
 
 .form-control-s label{
@@ -37,15 +45,25 @@
     opacity: 0.95;
 }
 
+
+
 .form-control-s input{
     padding: 2px 5px;
     border-radius: 3px;
-    border: 1px solid rgba(0,0,0,0.2)
+    border: 1px solid rgba(0,0,0,0.5);
+    outline: none;
+    
 }
+
 
 .form-control-s textarea{
     min-height: 100px;
     border: none;
+}
+
+.form-control-s select{
+    border: 1px solid rgba(0,0,0,0.5);
+    outline: none;
 }
 
 
@@ -60,3 +78,119 @@
     background-color: var(--main-color);
 }
 
+.form-control-s .deelnemers{
+    width: 100%;
+}
+
+.form-control-s.attachment {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .form-control-s.attachment input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+    font-size: 20px; /* Adjust the font size as needed */
+    cursor: pointer;
+    opacity: 0;
+    z-index: 300;
+  }
+  
+  .form-control-s.attachment label {
+    display: inline-block;
+    background-color: var(--main-color);
+    padding: 5px 10px;
+  }
+  
+
+  .text-current-files{
+    color: #000;
+    font-style: italic;
+    text-decoration: underline;
+  }
+
+
+/* .form-control-s.attachment span{
+    font-weight: 500;
+    color: #000 !important;
+}
+
+.form-control-s.attachment {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.form-control-s.attachment input[type="file"] {
+   display: none;
+
+    cursor: pointer;
+}
+
+.form-control-s.attachment label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+} */
+
+/* Sync Fusion Styling */
+
+.e-multiselect.e-input-group .e-multi-select-wrapper {
+    width: 100%;
+    background-color: #fff;
+}
+.e-multiselect .e-delim-values {
+    -webkit-text-fill-color: var(--main-color);
+    font-size: 16px;
+    /* font-family: cursive; */
+}
+
+.e-multiselect.e-input-group.e-control-wrapper.e-input-focus::before, .e-multiselect.e-input-group.e-control-wrapper.e-input-focus::after {
+    background: var(--main-color);
+}
+
+.e-popup .e-checkbox-wrapper .e-frame.e-check, .e-popup .e-checkbox-wrapper:hover .e-frame.e-check {
+    background-color: var(--secund-color);
+    color: white;
+}
+
+.e-multiselect input.e-dropdownbase::placeholder {
+    font-size: 16px;
+}
+
+
+span .e-searcher{
+    width: 100% !important;
+}
+
+ejs-multiselect{
+    width: 100%;
+    cursor: pointer;
+}
+
+.e-multiselect{
+    width: 100%;
+}
+
+.e-searcher{
+    width: 100%;
+}
+
+.e-zero-size{
+    display: none;
+}
+
+ejs-multiselect .e-searcher input.e-dropdownbase{
+    width: 98%;
+    padding:0;
+    padding-left: 10px;
+    border: none;
+}

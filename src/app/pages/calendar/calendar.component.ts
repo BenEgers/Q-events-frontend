@@ -1,6 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EventModel } from 'src/app/models/event.model';
 import { EventService } from 'src/app/services/event.service';
 import { UserService } from 'src/app/services/user.service';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -25,27 +24,21 @@ export class CalendarComponent {
   private uiService = inject(UiService);
   
   public activeUserId = this.userService.activeUserId;
+  public $allEvents = this.eventService.$eventsOfUser;
 
   ngOnInit(): void {
-    this.eventService.getAllEvents();
+    if(this.eventService.$eventsOfUser().length == 0){
+      this.activeUserId && this.eventService.getEventsWithUser(this.activeUserId);
+    }
   }
   
-  $eventsOfUser = computed(() => {
-    const allEvents = this.eventService.$allEvents();
-    const activeUserId = this.userService.activeUserId;
-    
-    if(!activeUserId) {
-      return null;
-    }
-    return  allEvents.filter((evnt: EventModel) => evnt.organizerId == activeUserId);    
-  })
 
   $calendarEvents = computed(() => {
     let calEvents: CalendarItem[] = []
     let item: CalendarItem;
     let date: Date 
-    this.$eventsOfUser()?.map(event => {
-      date = new Date(event.datum);
+    this.$allEvents()?.map(event => {
+      date = new Date(event.dateTime);
       item = new CalendarItem(`${event.id}`,event.titel, date);
       calEvents.push(item);
     })
@@ -55,7 +48,7 @@ export class CalendarComponent {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, timeGridPlugin],
     initialView: 'dayGridMonth',
-    weekends: false,
+    weekends: true,
     headerToolbar: {
       start: "today prev,next",
       center: "title",

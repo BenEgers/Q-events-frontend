@@ -2,10 +2,10 @@ import { Component, OnInit, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventCardComponent } from 'src/app/components/event-card/event-card.component';
 import { EventService } from 'src/app/services/event.service';
-import { EventModel } from 'src/app/models/event.model';
 import { UserService } from 'src/app/services/user.service';
 import { EventFormComponent } from "../../components/event-form/event-form.component";
 import { UiService } from 'src/app/services/ui.service';
+import { EventDTO } from 'src/app/models/eventDTO.model';
 
 @Component({
     selector: 'app-events',
@@ -20,21 +20,19 @@ export class EventsComponent implements OnInit{
   private eventService = inject(EventService);
   private uiService = inject(UiService);
 
+  public $allEvents = this.eventService.$eventsOfUser; 
+
+  public activeUserId = this.userService.activeUserId;
+
   ngOnInit(): void {
-    this.eventService.getAllEvents();
+    if(this.eventService.$eventsOfUser().length == 0){
+      this.activeUserId && this.eventService.getEventsWithUser(this.activeUserId);
+    }
   }
     
-$eventsOfUser = computed(() => {
-  const allEvents = this.eventService.$allEvents()
-  const activeUserId = this.userService.activeUserId
-  
-  if(!activeUserId) {
-    return null;
-  }
-  const evntsUnOrderd =  allEvents.filter((evnt: EventModel) => evnt.organizerId == activeUserId);
-  return evntsUnOrderd.sort(function(a,b) { return compareDates(a, b)})
-
-})
+  $eventsOfUser = computed(() => {
+    return this.$allEvents().sort(function(a,b) { return compareDates(a, b)})
+  })
 
 showForm() : void{
   this.uiService.$showEventForm.set(true);
@@ -46,9 +44,9 @@ goToDashboard(){
 
 }
 
-function compareDates(event1: EventModel, event2: EventModel): number {
-  const date1 = new Date(event1.datum);
-  const date2 = new Date(event2.datum);
+function compareDates(event1: EventDTO, event2: EventDTO): number {
+  const date1 = new Date(event1.dateTime);
+  const date2 = new Date(event2.dateTime);
   if (date1 < date2) {
     //Date A is before Date B
     return -1;

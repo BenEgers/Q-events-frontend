@@ -1,4 +1,4 @@
-<div class="card" [ngClass]="{'owner': event.organizerId == 1, 'late': hasPassed}">
+<div class="card" [ngClass]="{'owner': event.organizer.id == 1, 'late': hasPassed}">
     <div class="heading">
         <h3>{{event.titel}}</h3>
         <div class="date-flex">

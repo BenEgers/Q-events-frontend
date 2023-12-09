@@ -69,8 +69,7 @@ export class RegisterComponent {
       email: this.signUpForm.value.email!,
       password: this.signUpForm.value.password!,
     }
-    this.userService.register(newUser);
-    this.uiService.redirect('/dashboard');
+    this.userService.register(newUser)
   }
 
 }
