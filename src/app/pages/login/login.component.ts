@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject } from '@angular/core';
+import { Component, OnInit, Signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit{
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private uiService = inject(UiService);
-  private router = inject(Router);
+  public loading: Signal<boolean> = this.uiService.getLoading();
+
 
   ngOnInit(): void {
       
@@ -44,9 +45,10 @@ export class LoginComponent implements OnInit{
 
   async onSubmit() {
 
-    this.isSubmitted = true;
-    
+    this.uiService.setLoading(true);
     if(this.loginForm.invalid){
+      this.isSubmitted = true;
+      this.uiService.setLoading(false);
       return;
     }
 
@@ -76,6 +78,7 @@ export class LoginComponent implements OnInit{
     if (value === 0) {
       this.mainErrorMessage = 'Username or Password are incorrrect'
       this.isSubmitted = false;
+      
     } else {
       this.userService.setActiveUser(value);
       localStorage.setItem('q_user', `${value}`)
@@ -85,6 +88,8 @@ export class LoginComponent implements OnInit{
       
       this.uiService.redirect('/dashboard');
     }
+
+    this.uiService.setLoading(false);
   }
 
 }

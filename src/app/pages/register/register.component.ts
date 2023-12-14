@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, Signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
@@ -18,6 +18,9 @@ export class RegisterComponent {
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private uiService = inject(UiService);
+
+  public loading: Signal<boolean> = this.uiService.getLoading();
+
 
   isLoggedIn = computed(() => {
     return this.userService.$isLoggedIn()
@@ -48,9 +51,10 @@ export class RegisterComponent {
 
   onSubmit() {
 
-    this.isSubmitted = true;
-    
+    this.uiService.setLoading(true);
     if(this.signUpForm.invalid){
+      this.isSubmitted = true;
+      this.uiService.setLoading(false);
       return;
     }
 

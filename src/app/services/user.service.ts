@@ -1,7 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import{ Observable} from 'rxjs'
-import { User } from '../models/user.model';
 import { UserAuth } from '../models/userAuth.model';
 import { UiService } from './ui.service';
 import { UserDTO } from '../models/userDTO.model';
@@ -47,8 +46,8 @@ export class UserService{
   //   return this.http.get<UserDTO>(`${this.apiUrl}/users/${id}`);
   // }
 
-  createUser(user: UserCreationDTO): Observable<number> {
-    return this.http.post<number>(`${this.apiUrl}/users`, user, httpOptions);
+  createUser(user: UserCreationDTO): Observable<UserDTO> {
+    return this.http.post<UserDTO>(`${this.apiUrl}/users`, user, httpOptions);
   }
 
   updateUserInfo(user: UserDTO): Observable<UserDTO> {
@@ -73,14 +72,16 @@ export class UserService{
     let result:number = 0;
     
     this.createUser(user).subscribe(
-      (id) => {
-        if(id == 0) {
+      (userDTO) => {
+        if(userDTO.id == 0) {
           console.log("Error registering user")
           return;
         }
+
+        this.uiService.setLoading(false)
     
-        localStorage.setItem('q_user', `${id}`)
-        this.activeUserId = id;
+        localStorage.setItem('q_user', `${userDTO.id}`)
+        this.activeUserId = userDTO.id;
         this.$isLoggedIn.set(true);
         this.uiService.redirect('/dashboard');
       }  

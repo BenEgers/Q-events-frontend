@@ -4,17 +4,32 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
     gap: 10px;
     width: 365px;
     height: 185px;
     border: 1px solid #000;
     box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+    overflow: visible;
 }
 
 .card.late{
     border: 1px solid var(--main-color);
     box-shadow: 5px 5px 10px var(--main-color);
     box-shadow: inset 0 0 25px 8px var(--main-color);
+}
+
+.edit{
+    position: absolute;
+    right: 10px;
+    top: -1.7rem;
+    cursor: pointer;
+}
+
+.edit svg{
+    height: 2.5rem;
+    stroke: rgb(25, 25, 198);
+    z-index: 1000;
 }
 
 .heading{

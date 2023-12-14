@@ -22,22 +22,66 @@
             <p>Delete Event</p>
         </div>
     </div>
-
-    <div class="event-body">
-        <div class="omschrijving">
-            <p>{{$currentEvent() && $currentEvent()!.omschrijving}}</p>
+    <div class="wrapper">
+        <div class="event-body">
+            <div class="omschrijving">
+                <p>{{$currentEvent() && $currentEvent()!.omschrijving}}</p>
+            </div>
+    
+            <div class="locatie">
+                <h4>Locatie:</h4>
+                <h4 class="loc">{{$currentEvent() && $currentEvent()!.locatie}}</h4>
+            </div>
+            <div class="edit" (click)="showForm()" *ngIf="isOwner">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                  </svg>              
+            </div>
         </div>
-
-        <div class="locatie">
-            <h4>Locatie:</h4>
-            <h4 class="loc">{{$currentEvent() && $currentEvent()!.locatie}}</h4>
-        </div>
-        <div class="edit" (click)="showForm()">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-              </svg>              
+    
+        <div class="side-bar">
+            <div class="deelnemers">
+                <h5>Deelnemers:</h5>
+                <div *ngFor="let deelnemer of $deelnemers()" class="deelnemer">
+                    <div class="details">
+                        <p class="name">{{deelnemer.name}}</p>
+                        <p class="email">{{deelnemer.email}}</p>
+                    </div>
+                    <div class="cancel" (click)="removeLoggedInUser()" 
+                    *ngIf="(deelnemer.id == activeUserId && deelnemer.id !== $currentEvent()?.organizer?.id)"
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20" width="16" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="files-wrapper">
+        <div class="files">
+            <h5>Event files:</h5>
+            <dropzone [config]="config" [message]="'Click or drag images here to upload'" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
+        </div>
+        <div class="uploaded-files">
+            <div class="files-array">
+                <h5>Uploaded files:</h5>
+                <div *ngFor="let uploadedFile of $uploadedFiles()" class="uploaded-file">
+                    <div class="upload-thumbnail">
+                        <img [src]="getImageExtension(uploadedFile.fileName!)" alt="file-thumbnail" class="upload-thumbnail">         
+                        <p>{{uploadedFile.fileName}}</p>
+                    </div>
+                    <div class="download">
+                        <button (click)="downloadFile(uploadedFile)">Download</button>
+                    </div>
+                    <div class="delete">
+                        <button (click)="deleteFile(uploadedFile.id!)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='mini-loader' *ngIf="pageLoading()"></div>
+
+    
 <!-- 
     <div class="flex justify-content-center">
         <p-multiSelect [options]="$users" [(ngModel)]="selectedUsers" placeholder="Select Participants" optionLabel="name" display="chip" [showClear]="true"></p-multiSelect>

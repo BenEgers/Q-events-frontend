@@ -1,8 +1,9 @@
-import { Injectable, signal, inject} from '@angular/core';
+import { Injectable, signal, inject, Signal} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import{ Observable} from 'rxjs'
 import { EventDTO } from '../models/eventDTO.model';
 import { EventFile } from '../models/eventFile.model';
+import { UiService } from './ui.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,6 +19,7 @@ const httpOptions = {
 export class EventService {
 
   private http = inject(HttpClient);
+  private uiService = inject(UiService);
   $eventsOfUser = signal<EventDTO[]>([]);
   private apiUrl = 'http://localhost:8080/api';
 
@@ -28,14 +30,20 @@ export class EventService {
   // }
 
   getEventsOfUser(userId: number): void {
+    this.uiService.setWaitingResponse(true);
     this.http.get<EventDTO[]>(`${this.apiUrl}/events/user/${userId}`).subscribe({
-      next: events => this.$eventsOfUser.set(events)
+      next: events => {
+        this.$eventsOfUser.set(events)
+        this.uiService.setWaitingResponse(false);
+      }
     });
   }
 
   getEventsWithUser(userId: number): void {
-    this.http.get<EventDTO[]>(`${this.apiUrl}/events/deelnemer/${userId}`).subscribe({
-      next: events => this.$eventsOfUser.set(events)
+    this.uiService.setWaitingResponse(true);
+    this.http.get<EventDTO[]>(`${this.apiUrl}/events/deelnemer/${userId}`).subscribe( (events: EventDTO[]) => { 
+        this.uiService.setWaitingResponse(false);
+        this.$eventsOfUser.set(events);
     });
   }
 
@@ -52,15 +60,22 @@ export class EventService {
   }
 
   createEvent(eventDTO: EventDTO): void {
-    this.http.post<EventDTO>(`${this.apiUrl}/events`, eventDTO, httpOptions).subscribe((responseDTO) => this.$eventsOfUser.mutate(events => events.push(responseDTO)))
+    this.http.post<EventDTO>(`${this.apiUrl}/events`, eventDTO, httpOptions).subscribe((responseDTO) => {
+      this.$eventsOfUser.mutate(events => events.push(responseDTO))
+      this.uiService.$loading.set(false);
+      this.uiService.$showEventForm.set(false);
+    })
   }
 
   updateEventInfo(eventDTO: EventDTO):Observable<EventDTO> {
+    return this.http.put<EventDTO>(`${this.apiUrl}/events/update/email`, eventDTO, httpOptions);
+  }
+  updateEventInfoNoEmail(eventDTO: EventDTO):Observable<EventDTO> {
     return this.http.put<EventDTO>(`${this.apiUrl}/events/update`, eventDTO, httpOptions);
   }
 
   deleteEvent(eventDTO: EventDTO): void {
-    this.http.delete<EventDTO>(`${this.apiUrl}/events/${eventDTO.id}`).subscribe(() => this.$eventsOfUser.set( this.$eventsOfUser().filter(event => event.id !== eventDTO.id)));
+    this.http.delete<EventDTO>(`${this.apiUrl}/events/${eventDTO.id}`).subscribe();
   }
 
   uploadFile(formData: FormData): Observable<EventFile> {

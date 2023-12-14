@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 import { EventDTO } from 'src/app/models/eventDTO.model';
+import { UiService } from 'src/app/services/ui.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-event-card',
@@ -14,13 +16,25 @@ import { EventDTO } from 'src/app/models/eventDTO.model';
 export class EventCardComponent implements OnInit{
 
   private eventService = inject(EventService);
+  private uiService = inject(UiService);
+  private userService = inject(UserService);
   @Input() event!: EventDTO;
   hasPassed: boolean = false;
   convertedDate: string = '';
+  isOwner: boolean = false;
+
   
   ngOnInit(): void {
     this.checkDateTime(this.event);
     this.convertDateTime(this.event.dateTime);
+
+    this.isOwner = this.userService.activeUserId == this.event.organizer.id;
+
+  }
+
+  showForm() {
+    this.uiService.$editingEvent.set(this.event)
+    this.uiService.$showEventForm.set(true);
   }
 
   checkDateTime(event: EventDTO) : void {

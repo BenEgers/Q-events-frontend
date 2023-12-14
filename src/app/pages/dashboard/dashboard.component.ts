@@ -12,12 +12,13 @@ import { CalendarItem } from 'src/app/models/calendar-item.model';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { UiService } from 'src/app/services/ui.service';
 import { EventDTO } from 'src/app/models/eventDTO.model';
+import { SkeletonComponent } from 'src/app/components/skeleton/skeleton.component';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, EventCardComponent, RouterModule, FullCalendarModule],
+  imports: [CommonModule, EventCardComponent, SkeletonComponent, RouterModule, FullCalendarModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -26,8 +27,9 @@ export class DashboardComponent implements OnInit{
   private userService = inject(UserService);
   private eventService = inject(EventService);
   private uiService = inject(UiService);
-
+  public skeletonCards: number[] = [1,1,1];
   public $allEvents = this.eventService.$eventsOfUser;
+  public $waitingResponse = this.uiService.getWaitingResponse();
   
   public activeUserId = this.userService.activeUserId;
   newUser!: User;   

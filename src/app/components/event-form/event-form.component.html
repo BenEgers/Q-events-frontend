@@ -33,37 +33,21 @@
             <textarea formControlName="omschrijving" id="omschrijving" class="omschrijving"></textarea>
         </div>
         <div class="form-control-s deelnemers">
-            <!-- <ejs-multiselect id='multiselectelement' formControlName="deelnemers"
-            [fields]='fields' [mode]='mode' [allowFiltering]='true' [dataSource]='$usersSelect()' [popupHeight]='popupHeight' [popupWidth]='popupWidth' [placeholder]='placeholder'></ejs-multiselect>
-            <div *ngIf="eventForm.get('deelnemers')?.invalid && (eventForm.get('deelnemers')?.dirty) || (isSubmitted && !eventForm.get('deelnemers')?.dirty)" class="text-danger">
-                Selecteer tenminste 1 deelnemer!!
-            </div> -->
-
-            <ng-multiselect-dropdown
-                [placeholder]="placeholder"
-                [settings]="dropdownSettings"
-                [data]="$usersSelect()"
-                formControlName="deelnemers"
-                (onSelect)="onItemSelect($event)"
-                (onSelectAll)="onSelectAll($event)"
+            <ng-multiselect-dropdown class="muliselect"
+            [placeholder]="placeholder"
+            [settings]="dropdownSettings"
+            [data]="$usersSelect()"
+            formControlName="deelnemers"
             >
             </ng-multiselect-dropdown>
-        </div>
-        <div class="form-control-s attachment">
-            <div class="custom-file-input">
-                <input type="file" #fileInput multiple formControlName="attachment" />
-                <label for="fileInput">Add attachment</label>
-                <div>{{ getSelectedFileNames() }}</div>
-            </div>
-            <div *ngIf="editingEvent" class="text-current-files"> 
-                <span>Current attachment:</span> {{editingEvent && (editingEvent.files && editingEvent.files[0].fileName)}}
+            <div *ngIf="eventForm.get('deelnemers')?.invalid && (eventForm.get('deelnemers')?.dirty) || (isSubmitted && !eventForm.get('deelnemers')?.dirty)" class="text-danger">
+                Selecteer tenminste 1 deelnemer!!
             </div>
         </div>
-
         <div class="form-control-s submit">
             <button type="submit" name="submit"  id="submit">{{submitBtnText}}</button>
         </div>
-
+        <div class='mini-loader' *ngIf="loading()"></div>
     </form>
     
 </section>

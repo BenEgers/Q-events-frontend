@@ -12,6 +12,9 @@
     
         <div class="event-card-container">
             <app-event-card *ngFor="let event of $eventsOfUser()" [event]="event"></app-event-card>
+            <div class='skeleton-body' *ngIf="$eventsOfUser().length < 1 && $waitingResponse()">
+                <app-skeleton *ngFor="let card of skeletonCards"></app-skeleton>
+            </div>
         </div>
     </section>
 

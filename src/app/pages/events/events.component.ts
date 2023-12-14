@@ -6,19 +6,23 @@ import { UserService } from 'src/app/services/user.service';
 import { EventFormComponent } from "../../components/event-form/event-form.component";
 import { UiService } from 'src/app/services/ui.service';
 import { EventDTO } from 'src/app/models/eventDTO.model';
+import { SkeletonComponent } from 'src/app/components/skeleton/skeleton.component';
 
 @Component({
     selector: 'app-events',
     standalone: true,
     templateUrl: './events.component.html',
     styleUrls: ['./events.component.css'],
-    imports: [CommonModule, EventCardComponent, EventFormComponent]
+    imports: [CommonModule, EventCardComponent, EventFormComponent, SkeletonComponent]
 })
 export class EventsComponent implements OnInit{
   
   private userService = inject(UserService);
   private eventService = inject(EventService);
   private uiService = inject(UiService);
+  public skeletonCards: number[] = [1,1,1];
+
+  public $waitingResponse = this.uiService.getWaitingResponse();
 
   public $allEvents = this.eventService.$eventsOfUser; 
 

@@ -6,10 +6,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { EventFormComponent } from "./components/event-form/event-form.component";
 import { UiService } from './services/ui.service';
 import { UserService } from './services/user.service';
-import { registerLicense } from '@syncfusion/ej2-base';
+// import { registerLicense } from '@syncfusion/ej2-base';
 
 // Registering Syncfusion license key
-registerLicense('Ngo9BigBOggjHTQxAR8/V1NHaF1cWWhIYVVpR2Nbe05xdl9GaFZRQmY/P1ZhSXxQd0djXn5ccHxVTmFVVUY');
+// registerLicense('Ngo9BigBOggjHTQxAR8/V1NHaF1cWWhIYVVpR2Nbe05xdl9GaFZRQmY/P1ZhSXxQd0djXn5ccHxVTmFVVUY');
 
 
 @Component({

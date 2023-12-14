@@ -3,13 +3,16 @@
     <div class="links">
         <div class="today">
             <div class='cta-3'>Your Events For Today</div>
-        </div>
+    </div>
         <div class="all-events">
             <a class='cta-3 red' routerLink="/events">All Your Events ></a>
         </div>
     </div>
     <div class="event-card-container-overflow">
         <app-event-card *ngFor="let event of $eventsOfToday()" [event]="event"></app-event-card>
+        <div class='skeleton-body' *ngIf="$eventsOfToday().length < 1 && $waitingResponse()">
+            <app-skeleton *ngFor="let card of skeletonCards"></app-skeleton>
+        </div>
     </div>
 </section>
 <div class="spacer"></div>
@@ -22,7 +25,7 @@
             <a class='cta cta-make' (click)="showForm()">Make New Event +</a>
         </div>
     </div>
-    <full-calendar [options]="calendarOptions" [events]="$calendarEvents()">
+    <full-calendar [options]="calendarOptions" [events]="$calendarEvents()" class="calendar-body">
         <ng-template #eventContent let-arg>
             <div class="body" routerLink='/events/{{arg.event.id}}'>
                 <div class="wrapper">
