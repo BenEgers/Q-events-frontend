@@ -1,6 +1,9 @@
-<section class="event-form dismiss" (click)="handleClick($event)">
+<section class="event-form dismiss" (dblclick)="handleClick($event)">
     <form class="form" [formGroup]="eventForm" (ngSubmit)="onSubmit()">
         <h2 class="header">🎆🎊Create Event</h2>
+        <div class="close" (click)="closeForm()">
+            <h2>X</h2>
+        </div>
         <div class="form-control-s titel">
             <label for="titel">Titel:</label>
             <input type="text" placeholder="Titel van het evenement" formControlName="titel" id="titel" class="titel">

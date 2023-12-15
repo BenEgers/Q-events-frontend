@@ -13,7 +13,7 @@
             <label for="password">password:</label>
             <input type="password" formControlName="password" id="password">
             <span *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm?.get('password')?.touched) || (isSubmitted && !loginForm.get('password')?.dirty)" class="text-danger">
-                Password is vereist! (min. 5 chars)
+                Vergeet uw wachtwoord niet in te vullen!
             </span>
         </div>
         <div class="form-control-s submit">

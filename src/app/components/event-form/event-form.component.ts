@@ -167,9 +167,14 @@ export class EventFormComponent {
 
         //Hide eventForm
         this.uiService.$showEventForm.set(false);
+        this.uiService.$editingEvent.set(null);
     })
   }
 
+  closeForm(): void {
+    this.uiService.$showEventForm.set(false);
+    this.uiService.$editingEvent.set(null);
+  }
 
   //Function for closing/hiding eventform.
   handleClick(e: any): void {
